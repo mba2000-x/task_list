@@ -1,0 +1,226 @@
+@charset "utf-8";
+
+/*  ТАБЛИЦА СТИЛЕЙ  */
+
+html, body {
+    font-family: verdana, tahoma, Arial,sans-serif;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+a{
+    color: #4080E0;
+}
+
+h1, h2, h3, h4, h5, h6, hr {
+    box-sizing: content-box;
+    padding: 0;
+    margin: 0;
+}
+
+h1{font-size: 125%;}
+h2{font-size: 120%;}
+h3{font-size: 115%;}
+h4{font-size: 110%;}
+h5{font-size: 105%;}
+h6{font-size: 100%;}
+
+
+
+
+.tool-band{
+    background-color: #D0D0D0;
+    padding: 4px 10px;
+}
+
+.area_user{
+    float: right;
+}
+
+.area-body,
+.task-list{
+    padding: 8px 10px;
+}
+
+
+
+
+.grid {
+    border-collapse: collapse;
+}
+
+.grid > * > tr > td {
+    border: 1px solid #40B0FF;
+    padding: 2px 12px 2px 24px;
+}
+
+.grid > thead > tr > * {
+    background-color: #D0E8FF;
+    color: #406080;
+    cursor: default;
+    font-weight: bold;
+}
+
+
+.grid > thead > tr > *.sortable{
+    cursor: pointer;
+    position: relative;
+}
+
+.grid > thead > tr > *.sortable:hover{
+    background-color: #C0D8FF;
+    color: #6080E0;
+}
+
+.grid > thead > tr > *.sortable[data-sort-dir]:before{
+    content: '';
+    display: block;
+    position: absolute;
+    background-image: url('/assets/images.gif');
+    background-repeat: no-repeat;
+    background-position: 16px 0px;
+    width: 16px;
+    height: 16px;
+    left: 5px;
+    top: 2px;
+}
+
+.grid > thead > tr > *.sortable[data-sort-dir="asc"]:before  { background-position: 0px 0px; }
+
+.grid > thead > tr > *.sortable[data-sort-dir="desc"]:before { background-position: -16px 0px; }
+
+
+
+
+.pages{
+    margin: 10px 0;
+}
+
+.pages > span{
+    background-color: #FFFFFF;
+    border: 1px solid #40B0FF;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    padding: 4px 8px;
+    user-select: none;
+}
+
+.pages > span.selected{
+    color: #FFFFFF;
+    cursor: default;
+    border-color: #40B0FF;
+    background-color: #40B0FF;
+}
+
+.pages > span:not(.selected):hover{
+    border-color: #60D0FF;
+    background-color: #E0F0FF;
+}
+
+
+
+
+.area-back{
+    background-color: rgba(80,80,80,0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10001;
+}
+
+
+
+
+.task_edit, .form_auth{
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.task_edit.modal, .form_auth.modal{
+    position: absolute;
+    left: calc(50% - 300px);
+    top: 200px;
+    width: 600px;
+/*    margin: 200px auto;*/
+    z-index: 10002;
+}
+
+
+
+
+table.edit{
+    width: 100%;
+}
+
+table.edit > * > * > * {
+    vertical-align: top;
+}
+
+table.edit > * > * > *:nth-child(1){
+    width: 100%;
+}
+
+table.edit > * > * > *:nth-child(2){
+    width: 000%;
+}
+
+
+
+
+input.edit, textarea.edit, input.edit[type="checkbox"]{
+    margin: 2px;
+    padding: 2px;
+    width: 350px;
+
+    outline-color: blue;
+    outline-width: 1px;
+}
+
+input.edit[type="checkbox"] { width: 13px; }
+
+textarea.edit{
+    height: 120px;
+    min-height: 120px;
+    max-height: 350px;
+    resize: vertical;
+}
+
+button.edit{
+    height: 25px;
+    margin: 2px;
+    width: 100px;
+}
+
+span.mark{
+    display: inline-block;
+    margin: 2px;
+    padding: 2px;
+}
+
+
+
+
+
+div.area-info{
+    background-color: #E0F0E0;
+    border-radius: 5px;
+    border: 1px solid gray;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px;
+    position: absolute;
+    z-index: 10010;
+}
+div.area-info.error{
+    background-color: #F0E0E0;
+}
+
+/*                                                                                               */

@@ -1,12 +1,16 @@
-<?php
+<?php   ##                                  ####
+
+##
+##  КЛАСС ОБРАБОТЧИКА HTML-ЗАПРОСОВ
+##
 
 class Site{
 
     private $DB;
     private $db_host = 'localhost';
     private $db_user = 'root';
-    private $db_pass = 'masterkey';
-    private $db_name = 'users';
+    private $db_pass = 'noname';
+    private $db_name = 'tasklist';
 
     public function __construct(){
         $this->DB = mysqli_connect($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
@@ -31,6 +35,10 @@ class Site{
     private function actionUserDrop(){
         //  удаление клиента - установка признака активности в 0
         $id = $this->getParam('id');
+        if (!$this->checkID($id)){
+            die('Invalid parameter value');
+        }
+
         mysqli_query($this->DB, 'update client set active = 0 where id = '.$id);
         header('Location: /user/list');
     }
@@ -74,8 +82,9 @@ class Site{
                     '</ss:Worksheet>'.
                     '</Workbook>';
             $format = 'xlsx';
-        }   else
+        }   else{
             return;
+        }
 
         $fn = 'Unload-'.date('Y.m.d-H.i.s').'.'.$format;
 
@@ -92,7 +101,11 @@ class Site{
     private function actionUserForm(){
         //  Вывод окна редактора данных клиентов
         $id = $this->getParam('id');
-        $ui = !empty($id) ? $this->UserItemSelect($id) : NULL;
+        if (!$this->checkID($id)){
+            die('Invalid parameter value');
+        }
+
+        $ui = $this->UserItemSelect($id);
         $this->render('page-form.php', array('user_item' => $ui, ));
     }
 
@@ -107,15 +120,21 @@ class Site{
             }
             echo $s;
         }
-        else
+        else{
             $this->render('page-list.php', array('user_list' => $ul, ));
+        }
     }
 
     private function actionUserSave(){
         //  сохранение данных
         $qt = '';
         $id = $this->getParam('id');
-        if (!empty($id)){
+
+        if (!$this->checkID($id)){
+            die('Invalid parameter value');
+        }
+
+        if ($id !== 0){
             $qt = "update client set ".
                     "name_f = '".$this->getParam('name_f', '')."', ".
                     "name_l = '".$this->getParam('name_l', '')."', ".
@@ -127,6 +146,10 @@ class Site{
                     "('".$this->getParam('name_f', '')."', '".$this->getParam('name_l', '')."', '".$this->getParam('phone', '')."', '".$this->getParam('email', '')."')";
         }
         mysqli_query($this->DB, $qt);
+        $e = mysqli_error($this->DB);
+        if (!empty($e)){
+            die($e);
+        }
         header('Location: /user/list');
     }
 
@@ -155,8 +178,9 @@ class Site{
         } else
         if (substr($req, 0, 12)  === '/user/export'){
             $this->actionUserExport(substr($req, 13, 3));
-        } else
+        } else{
             $this->actionPage404();
+        }
     }
 
     protected function render($AName, $AParams = NULL){
@@ -169,8 +193,8 @@ class Site{
     private function UserItemSelect($id){
         //  выборка элемента списка клиентов по идентификатору
         $result = NULL;
-        if ($ds = mysqli_query($this->DB, 'select * from client where id = '.$id)){
-            if ($item = mysqli_fetch_object($ds)){
+        if (($ds = mysqli_query($this->DB, 'select * from client where id = '.$id)) !== FALSE){
+            if (($item = mysqli_fetch_object($ds)) !== NULL){
                 $result = $item;
             }
             mysqli_free_result($ds);
@@ -195,7 +219,7 @@ class Site{
          and    ((upper('$phone' ) = '') or (upper(phone)  like concat('%', upper('$phone' ), '%')))
          and    ((upper('$email' ) = '') or (upper(email)  like concat('%', upper('$email' ), '%')))
     order by    name_l";
-        if ($ds = mysqli_query($this->DB, $sql)){
+        if (($ds = mysqli_query($this->DB, $sql)) !== FALSE){
             while ($item = mysqli_fetch_object($ds)){
                 $result[] = $item;
             }
@@ -204,6 +228,10 @@ class Site{
         return $result;
     }
 
-
+    private function checkID(&$value){
+        ##  проверка валидности идентификатора
+        $value = (int) $value;
+        return $value !== 0;
+    }
 
 }

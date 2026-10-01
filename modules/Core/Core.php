@@ -9,25 +9,25 @@ require_once 'mvc/MVC_Model.php';
 
 class Core extends MVC_Controller{
 
-    private     $_module    =   '';     ##  активный модуль
-    private     $_action    =   '';     ##  выполняемое действие
+    private     $_module    =   '';             ##  активный модуль
+    private     $_action    =   '';             ##  выполняемое действие
     protected   $_db        =   NULL;
     private     $_db_config =   [
-        'mba.zzz.com.ua'    =>  [
-            'hostname'  => 'mysql.zzz.com.ua',
-            'username'  => 'mba2000',
-            'password'  => 'noin_957_deX',
-            'dbname'    => 'mba2000',
+        'test.localhost'    =>  [
+            'hostname'  => 'test.localhost',
+            'username'  => 'general',
+            'password'  => 'U52W!xpov@D$56',
+            'dbname'    => 'tasklist',
             'port'      => '3306',
             'socket'    => '',
         ],
         'default'       =>  [
-            'hostname'  => 'localhost',     ##  ini_get("mysqli.default_host")
-            'username'  => 'root',          ##  ini_get("mysqli.default_user")
-            'password'  => 'noname',        ##  ini_get("mysqli.default_pw")
-            'dbname'    => 'tasklist',      ##  ""
-            'port'      => '3306',          ##  ini_get("mysqli.default_port")
-            'socket'    => '',              ##  ini_get("mysqli.default_socket")
+            'hostname'  => 'localhost',         ##  ini_get("mysqli.default_host")
+            'username'  => 'root',              ##  ini_get("mysqli.default_user")
+            'password'  => 'noname',            ##  ini_get("mysqli.default_pw")
+            'dbname'    => 'alphix',            ##  ""
+            'port'      => '3306',              ##  ini_get("mysqli.default_port")
+            'socket'    => '',                  ##  ini_get("mysqli.default_socket")
         ]
     ];
 
@@ -127,4 +127,4 @@ class Core extends MVC_Controller{
 
 }
 
-//                                        ####
+## ##
